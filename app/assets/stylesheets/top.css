@@ -1,0 +1,16 @@
+/* 背景色の変化CSS */
+body {
+	animation: bgchange 40s ease infinite;/*変化の時間を変更したい場合は40sの部分を好きな時間に変更*/
+}
+@keyframes bgchange{
+      0%   {background:#daca0b;}/*変化させたい色*/
+      20%  {background:#8bda0b;}/*変化させたい色*/
+      30%  {background:#18da0b;}/*変化させたい色*/
+      40%  {background:#0bdaaa;}/*変化させたい色*/
+      50%  {background:#0ba1da;}/*変化させたい色*/
+      60% {background:#0b38da;}/*変化させたい色*/
+      70% {background:#810bda;}/*変化させたい色*/
+      80% {background:#da0b9a;}/*変化させたい色*/
+      90% {background:#da0b4e;}/*変化させたい色*/
+      100% {background:#da6a0b;}/*変化させたい色*/
+ }
