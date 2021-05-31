@@ -1,16 +1,81 @@
-/* 背景色の変化CSS */
-body {
-	animation: bgchange 40s ease infinite;/*変化の時間を変更したい場合は40sの部分を好きな時間に変更*/
+/* トップページcss */
+.top {
+background-color: #d3d3d3;
+height: 90vh;
 }
-@keyframes bgchange{
-      0%   {background:#daca0b;}/*変化させたい色*/
-      20%  {background:#8bda0b;}/*変化させたい色*/
-      30%  {background:#18da0b;}/*変化させたい色*/
-      40%  {background:#0bdaaa;}/*変化させたい色*/
-      50%  {background:#0ba1da;}/*変化させたい色*/
-      60% {background:#0b38da;}/*変化させたい色*/
-      70% {background:#810bda;}/*変化させたい色*/
-      80% {background:#da0b9a;}/*変化させたい色*/
-      90% {background:#da0b4e;}/*変化させたい色*/
-      100% {background:#da6a0b;}/*変化させたい色*/
- }
+.catch-copy{
+position: relative;
+display: flex;
+justify-content: center;
+top: 30%;
+}
+.concept{
+position: relative;
+display: flex;
+justify-content: center;
+top: 35%;
+}
+.btns{
+margin-top: 1rem;
+display: block;
+position: relative;
+}
+.btn-service{
+display: inline-block;
+text-decoration: none;
+color: #000000;
+width: 80px;
+height: 80px;
+line-height: 80px;
+border-radius: 50%;
+text-align: center;
+overflow: hidden;
+font-weight: bold;
+background-image: linear-gradient(#e8e8e8 0%, #d6d6d6 100%);
+/* box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19); */
+border-bottom: solid 2px #b5b5b5;
+}
+.btn-service:hover{
+color: #000000;
+background: #c0c0c0;
+}
+.processbtn{
+position: absolute;
+top: 20vh;
+left: 20%;
+}
+.trainingbtn{
+position: absolute;
+top: 10vh;
+left: 40%;
+}
+.tweetbtn{
+position: absolute; 
+top: 10vh;
+left: 60%;
+}
+.mealbtn{
+position: absolute;
+top: 20vh;
+left: 80%;
+}
+.checksbtn{
+position: absolute;
+top: 30vh;
+left: 20%;
+}
+.userbtn{
+position: absolute;
+top: 40vh;
+left: 40%;
+}
+.in_takesbtn{
+position: absolute;
+top: 40vh;
+left: 60%;
+}
+.out_takesbtn{
+position: absolute;
+top: 30vh;
+left: 80%;
+}
