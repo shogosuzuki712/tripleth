@@ -1,15 +1,8 @@
-.header {
-  height: 100px;
-  color: white;
-  background-color: #432;
-}
-.footer {
-  height: 80px;
-  background-color: #432;
-}
+// tweet詳細ページ
 .contents{
   display: flex;
 }
+// tweet詳細エリア
 .article{
   width: 60vw;
   padding: 10px;
@@ -17,9 +10,11 @@
 .container{
   margin-top: 10px;
 }
+// tweet削除ボタン
 .delete-button{
   text-align: center;
 }
+// tweet画像
 .tweet-image{
   height: 250px;
   display: flex;
@@ -31,6 +26,7 @@
   border: 2px dotted black;
   margin: auto;
 }
+// tweet表示エリア
 .tweet-box{
   height: 400px;
   display: flex;
@@ -51,18 +47,22 @@
   display: flex;
   text-align: center;
 }
+// tweet,comment投稿者アイコン
 .icon-pict{
   height: 22px;
   width: 22px;
   margin: 0 10px 0 5px;
   border-radius: 100%;
 }
+// tweet本文
 .tweet-main{
   height: calc(100% - 50px);
   border: 1px dotted gray;
   padding: 5px;
   word-break: break-word;
 }
+// /tweet表示エリア
+// コメント表示エリア
 .comment-box{
   width: 40vw;
   height: 700px;
@@ -83,15 +83,20 @@
 .comment-header{
   display: flex;
 }
+// コメント投稿エリア
 .comment-form{
   width: 90%;
   margin: 0 auto;
   padding: 5px;
   border: 2px dotted black;
 }
+// コメント入力エリア
 .comment-form input{
   width: 80%;
   margin-right: 5%;
+}
+// /コメント表示エリア
+// /tweet詳細ページ
 
 //****** 仮ヘッダーとフッター ******//
 header{
