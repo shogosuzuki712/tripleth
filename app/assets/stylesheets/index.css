@@ -22,21 +22,20 @@ footer{
 
  /* 投稿内容仮置き */
 
-.tweet_set{
-  background-color: lightseagreen;
-  width: 700px;
-  height: 250px;
-  margin-bottom: 40px;
-  padding: 25px 100px;
-  position: relative;
+ .tweet{
+  width: 100vh;
+  display: grid;
+  gap: 1vw;
+  grid-template-columns: 15vw 15vw 15vw;
+  grid-template-rows: auto;
+  margin: 5px 5px 5px 5px;
+
 }
 
-.tweet_set2{
-  background-color: dodgerblue;
-  width: 600px;
-  height: 150px;
-  padding: 25px 100px;
-  position: absolute; right: 50px;
+.tweet_content{
+  width: 200px;
+  height: 200px;
+  border: 1px solid ;
 }
 
 /* 右下のボタン */
