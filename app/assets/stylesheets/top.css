@@ -1,7 +1,7 @@
 /* トップページcss */
 .top {
 background-color: #d3d3d3;
-height: 90vh;
+height: 80vh;
 }
 .catch-copy{
 position: relative;
@@ -16,7 +16,7 @@ justify-content: center;
 top: 35%;
 }
 .btns{
-margin-top: 1rem;
+margin-top: -1rem;
 display: block;
 position: relative;
 }
@@ -42,12 +42,12 @@ background: #c0c0c0;
 .processbtn{
 position: absolute;
 top: 20vh;
-left: 20%;
+left: 15%;
 }
 .trainingbtn{
 position: absolute;
 top: 10vh;
-left: 40%;
+left: 35%;
 }
 .tweetbtn{
 position: absolute; 
@@ -62,12 +62,12 @@ left: 80%;
 .checksbtn{
 position: absolute;
 top: 30vh;
-left: 20%;
+left: 15%;
 }
 .userbtn{
 position: absolute;
 top: 40vh;
-left: 40%;
+left: 35%;
 }
 .in_takesbtn{
 position: absolute;
