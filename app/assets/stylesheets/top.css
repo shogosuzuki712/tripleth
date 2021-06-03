@@ -1,0 +1,81 @@
+/* トップページcss */
+.top {
+background-color: #d3d3d3;
+height: 90vh;
+}
+.catch-copy{
+position: relative;
+display: flex;
+justify-content: center;
+top: 30%;
+}
+.concept{
+position: relative;
+display: flex;
+justify-content: center;
+top: 35%;
+}
+.btns{
+margin-top: 1rem;
+display: block;
+position: relative;
+}
+.btn-service{
+display: inline-block;
+text-decoration: none;
+color: #000000;
+width: 80px;
+height: 80px;
+line-height: 80px;
+border-radius: 50%;
+text-align: center;
+overflow: hidden;
+font-weight: bold;
+background-image: linear-gradient(#e8e8e8 0%, #d6d6d6 100%);
+/* box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19); */
+border-bottom: solid 2px #b5b5b5;
+}
+.btn-service:hover{
+color: #000000;
+background: #c0c0c0;
+}
+.processbtn{
+position: absolute;
+top: 20vh;
+left: 20%;
+}
+.trainingbtn{
+position: absolute;
+top: 10vh;
+left: 40%;
+}
+.tweetbtn{
+position: absolute; 
+top: 10vh;
+left: 60%;
+}
+.mealbtn{
+position: absolute;
+top: 20vh;
+left: 80%;
+}
+.checksbtn{
+position: absolute;
+top: 30vh;
+left: 20%;
+}
+.userbtn{
+position: absolute;
+top: 40vh;
+left: 40%;
+}
+.in_takesbtn{
+position: absolute;
+top: 40vh;
+left: 60%;
+}
+.out_takesbtn{
+position: absolute;
+top: 30vh;
+left: 80%;
+}
