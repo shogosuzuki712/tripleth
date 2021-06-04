@@ -22,7 +22,7 @@ footer{
 
  /* 投稿内容仮置き */
 
- .tweet{
+ .content{
   width: 100vh;
   display: grid;
   gap: 1vw;
@@ -32,7 +32,7 @@ footer{
 
 }
 
-.tweet_content{
+.box_content{
   width: 200px;
   height: 200px;
   border: 1px solid ;
@@ -50,3 +50,10 @@ footer{
 }
 
 /* 以上コンフリクト回避のためindex.cssを新たに追加して記述 */
+
+/* 左上にユーザー名仮表示 */
+.test{
+  position: absolute;
+  margin-left: 50px;
+  font-size: x-large;
+}
