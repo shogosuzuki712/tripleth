@@ -73,7 +73,7 @@ footer{
 /* ここまで */
 
 /* 削除ボタン位置調整 */
-.btn-primary {
+.checks {
   position: absolute;
   right: 25px;
   height: 38px;
