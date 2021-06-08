@@ -1,17 +1,17 @@
 <div class='header'>
-  <h1>Processes#show</h1>
+  <h1>successes#show</h1>
 </div>
 <div class='contents'>
   <div class='article'>
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          <%= link_to '一覧に戻る','/processs', class: "btn btn-info back-button" %>
+          <%= link_to '一覧に戻る','/success', class: "btn btn-info back-button" %>
         </div>
         <div class="col-sm delete-button">
           <%# if user_signed_in? %>
-            <%# if current_user.id == @process.user_id %>
-              <%= link_to '削除','/processs', class: "btn btn-danger", confirm: "削除しますか？" %>
+            <%# if current_user.id == @success.user_id %>
+              <%= link_to '削除','/success', class: "btn btn-danger", confirm: "削除しますか？" %>
             <%# end %>
           <%# end %>
         </div>
@@ -19,22 +19,22 @@
         </div>
       </div>
     </div>
-    <div class='process-image'>
-      <%= image_tag "sample.png", class:'process-pict', placeholder: "画像挿入できます" %>
+    <div class='success-image'>
+      <%= image_tag "sample.png", class:'success-pict', placeholder: "画像挿入できます" %>
     </div>
-    <div class='process-box'>
-      <div class='process-content'>
-        <div class='process-header'>
-          <%=link_to 'process投稿者', '#', class: 'process-user'%>
-            <%# if process.user.image.attached? %>
-              <%#= image_tag process.user.image, class: "icon-pict" %>
+    <div class='success-box'>
+      <div class='success-content'>
+        <div class='success-header'>
+          <%=link_to 'success投稿者', '#', class: 'success-user'%>
+            <%# if success.user.image.attached? %>
+              <%#= image_tag success.user.image, class: "icon-pict" %>
             <%# else %>
               <%= image_tag 'sample.png', class:"icon-pict" %>
             <%# end %>
-            <div class='process-date'>投稿日時 <%#= l process.created_at %></div>
+            <div class='success-date'>投稿日時 <%#= l success.created_at %></div>
         </div>
-        <div class='process-title'>Title</div>
-        <div class='process-main'>process</div>
+        <div class='success-title'>Title</div>
+        <div class='success-main'>success</div>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
       <%# end %>
     </div>
     <div class="comment-form">
-    <%#= form_with model: [@process, @comment], url: "#", class: "comment-submit", local: true do |f| %>
+    <%#= form_with model: [@success, @comment], url: "#", class: "comment-submit", local: true do |f| %>
       <%#= render 'shared/error_messages', model: f.object %>
       <%#= f.text_area :text, class: "comment-text", placeholder: "コメントする", rows: "2", required: true %>
       <input type="text" placeholder="コメントする">

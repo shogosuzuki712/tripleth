@@ -1,4 +1,4 @@
-class ProcessesController < ApplicationController
+class SuccessesController < ApplicationController
   def index
   end
 
