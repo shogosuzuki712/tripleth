@@ -1,3 +1,11 @@
 class Person < ApplicationRecord
-  belongs_to :user
+  # アソシエーション
+  belongs_to :user, optional: true
+
+  # バリデーション
+  with_options presence: true do
+    validates :height
+    validates :weight
+    validates :goal
+  end
 end
