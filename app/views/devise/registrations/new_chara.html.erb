@@ -2,7 +2,7 @@
 <%# ヘッダー部分の呼び出し %>
 <%= render "shared/header"%>
 
-<%= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
+<%= form_with model: @chara, url: charas_path, class: 'registration-main', local: true do |f| %>
 
 <div class='form-wrap'>
   <div class='form-header'>
@@ -24,38 +24,38 @@
     <div class="form-text-wrap">
       都道府県
     </div>
-    <%= f.collection_select(:area_id, [], :hoge, :hoge, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
+    <%= f.collection_select(:area_id, Area.all, :id, :name, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
   </div>
   <div class="form-group">
     <div class="form-text-wrap">
       性別
     </div>
-    <%= f.collection_select(:gender_id, [], :hoge, :hoge, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
+    <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
   </div>
   <div class="form-group">
     <div class="form-text-wrap">
       年齢
     </div>
-    <%= f.collection_select(:age, [], :hoge, :hoge, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
+    <%= f.text_field :age, class:"input-default", placeholder: "例) 27(半角数字のみ)", type: "number" %>
   </div>
   <div class="form-group">
     <div class="form-text-wrap">
       仕事のスタイル
     </div>
-    <%= f.collection_select(:job_style_id, [], :hoge, :hoge, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
+    <%= f.collection_select(:job_style_id, JobStyle.all, :id, :name, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
   </div>
   <div class="form-group">
     <div class="form-text-wrap">
       日常の運動量
     </div>
-    <%= f.collection_select(:exercise_style_id, [], :hoge, :hoge, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
+    <%= f.collection_select(:exercise_style_id, ExerciseStyle.all, :id, :name, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
   </div>
   <div class="form-group">
     <div class="form-text-wrap">
       アイコン写真
     </div>
     <div class="click-upload">
-      <%= f.file_field :hoge, id:"item-image" %>
+      <%= f.file_field :image, id:"icon-image" %>
     </div>
   </div>
   <div class='register-btn'>
