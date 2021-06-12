@@ -19,6 +19,32 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render :new_chara
   end
 
+  def create_chara 
+    @user = User.new(session["devise.regist_data"]["user"])
+    @chara = Chara.new(chara_params)
+      unless @chara.valid?
+        render :new_chara and return
+      end
+    @user.build_chara(@chara.attributes)
+    session["chara.regist_data"] = @chara.attributes
+    @person = @user.build_person
+    render :new_person
+  end
+
+  def create_person
+    @user = User.new(session["devise.regist_data"]["user"])
+    @chara = Chara.new(session["chara.regist_data"])
+    @person = Person.new(person_params)
+      unless @person.valid?
+        render :new_person and return
+      end
+    @user.build_chara(@chara.attributes)
+    @user.build_person(@person.attributes)
+    @user.save
+    sign_in(:user, @user)
+    redirect_to root_path
+  end
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -74,4 +100,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def chara_params
+    params.require(:chara).permit(:text, :area_id, :gender_id, :age, :job_style_id, :exercise_style_id, :image)
+  end
+
+  def person_params
+    params.require(:person).permit(:height, :weight, :goal, :image)
+  end
 end
