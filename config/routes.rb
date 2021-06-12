@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+  devise_scope :user do
+    get 'charas', to: 'users/registrations#new_chara'
+    post 'charas', to: 'users/registrations#create_chara'
+  end
   root 'homes#index'
   resources :users, only: [:show, :edit]
   resources :tweets, only: [:index, :new, :show, :delete]
