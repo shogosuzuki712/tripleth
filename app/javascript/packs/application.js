@@ -19,5 +19,6 @@ require("channels")
 require("trix")
 require("@rails/actiontext")
 
-//= require chartkick
-//= require Chart.bundle
+import "chartkick/chart.js"
+require("chartkick") // 追記
+require("chart.js") // 追記
