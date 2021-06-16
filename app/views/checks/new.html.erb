@@ -1,17 +1,62 @@
+<%# 体重の表示 %>
+<%# ヘッダーファイルの呼び出し %>
+<%= render "shared/header" %>
+
 <div class="record-new">
   <div class="record-left">
-    <div class="record-calendar">カレンダー</div>
+    <div><li><%= link_to "process", records_path, method: :get, class: "btn btn-secondary" %></li></div>
+    <%# カレンダーの表示 %>
+    <%= month_calendar events: @checks do |date, checks| %>
+      <%= date.day %>
+
+      <% checks.each do |check| %>
+        <%= link_to check_path(check.user_id) do %>
+        <div>
+          <%= check.weight %>
+        </div>
+        <% end %>
+      <% end %>
+    <% end %>
     <div class="record-graph">グラフ</div>
   </div>
+
+  <%# 登録のページ %>
   <div class="record-right">
-    <div class="record-title" >checks</div>
-    <div class="record-form">
-      <div class="record-data" >日付</div>
-      <div class="record-menu" >メニュー①</div>
-      <div class="record-menu" >メニュー②</div>
-      <div class="record-menu" >メニュー③</div>
-      <div class="record-menu" >カロリー</div>
-      <div class="record-input" >登録ボタン</div>
+    <%= form_with model: @check, local: true do |f| %>
+    
+    <div class="record-title" >
+      checks
     </div>
+
+    <div class="record-form">
+      <div>
+        <div class="record-data">
+          <%= f.label "体重" %><br>
+          <%= f.text_field :weight %>
+        </div>
+
+
+        <div class="record-menu" >
+          <%= f.label :image, "現在の身体画像" %><br>
+          <%= f.file_field :image, id:"image" %>
+        </div>
+
+        <div class="record-menu">
+          <%= f.label "計測日時" %><br>
+          <%= f.datetime_select :start_time %>
+        </div>
+      </div>
+
+      
+
+      <div class="record-input">
+        <%# 登録ボタン %>
+        <%= f.submit "登録する" ,class:"sell-btn" %>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>
+
+<%# フッダーファイルの呼び出し %>
+<%= render "shared/footer" %>
