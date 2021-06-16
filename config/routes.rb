@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :records, only: [:index]
   resources :in_takes, only: [:new, :show, :delete]
   resources :out_takes, only: [:new, :show, :delete]
-  resources :checks, only: [:new, :show, :delete]
+  resources :checks, only: [:new, :create, :show, :delete]
 end
