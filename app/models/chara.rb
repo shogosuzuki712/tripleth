@@ -1,7 +1,7 @@
 class Chara < ApplicationRecord
   # アソシエーション
   belongs_to :user, optional: true
-  has_one_attached :image
+  # has_one_attached :avatar
 
   extend ActiveHash::Asociations::ActiveRecordExtensions
   belongs_to :area
@@ -13,7 +13,6 @@ class Chara < ApplicationRecord
   with_options presence: true do
     validates :text
     validates :age
-    # validates :image
     with_options numericality: { other_than: 0, message: '選択して下さい' } do
       validates :area_id
       validates :gender_id
