@@ -37,10 +37,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @person = Person.new(person_params)
       unless @person.valid?
         render :new_person and return
-      end
+      end 
+  # ActiveStorageはmodelで保存
     @user.build_chara(@chara.attributes)
-    @user.build_person(@person.attributes)
     @user.save
+    @person.user_id = @user.id
+    @person.save
     sign_in(:user, @user)
     redirect_to root_path
   end
@@ -104,10 +106,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def chara_params
-    params.require(:chara).permit(:text, :area_id, :gender_id, :age, :job_style_id, :exercise_style_id, :image)
+    params.require(:chara).permit(:text, :area_id, :gender_id, :age, :job_style_id, :exercise_style_id)
   end
 
   def person_params
-    params.require(:person).permit(:height, :weight, :goal, :image)
+    params.require(:person).permit(:avatar, :height, :weight, :goal, :body)
   end
 end
