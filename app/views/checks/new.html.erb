@@ -4,20 +4,25 @@
 
 <div class="record-new">
   <div class="record-left">
-    <div><li><%= link_to "process", records_path, method: :get, class: "btn btn-secondary" %></li></div>
+    <div><%= link_to "process", records_path, method: :get, class: "btn btn-secondary" %></div>
     <%# カレンダーの表示 %>
-    <%= month_calendar events: @checks do |date, checks| %>
-      <%= date.day %>
+    <%# <div class="record-calendar"> %>
+      <%= month_calendar events: @checks do |date, checks| %>
+        <%= date.day %>
 
-      <% checks.each do |check| %>
-        <%= link_to check_path(check.user_id) do %>
-        <div>
-          <%= check.weight %>
-        </div>
+        <% checks.each do |check| %>
+          <%= link_to check_path(check.user_id) do %>
+          <div>
+            <%= check.weight %>
+          </div>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-    <div class="record-graph">グラフ</div>
+    <%# </div> %>
+    <%# グラフの表示 %>
+    <%# <div class="record-graph"> %>
+      <%= line_chart @checks.pluck(:start_time, :weight) %>
+    <%# </div> %>
   </div>
 
   <%# 登録のページ %>
@@ -35,7 +40,6 @@
           <%= f.text_field :weight %>
         </div>
 
-
         <div class="record-menu" >
           <%= f.label :image, "現在の身体画像" %><br>
           <%= f.file_field :image, id:"image" %>
@@ -46,8 +50,6 @@
           <%= f.datetime_select :start_time %>
         </div>
       </div>
-
-      
 
       <div class="record-input">
         <%# 登録ボタン %>
