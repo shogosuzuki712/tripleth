@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  devise_scope :user do
+    get 'charas', to: 'users/registrations#new_chara'
+    post 'charas', to: 'users/registrations#create_chara'
+    get 'people', to: 'users/registrations#new_person'
+    post 'people', to: 'users/registrations#create_person'
+  end
   root 'homes#index'
   resources :users, only: [:show, :edit]
   resources :tweets, only: [:index, :new, :create, :show, :delete]
