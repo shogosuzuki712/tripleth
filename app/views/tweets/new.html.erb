@@ -7,17 +7,9 @@
 
 
 <div class="post post-tweet">
-
-  <%#----------- 一覧に戻るボタン
-    *リンク先仮置き*
-    *bootstrap仮置き* -----------#%>
-  <%= link_to "一覧に戻る", "#" ,class:"btn btn-primary back-top-btn" %>
-
-
-  <%#----------- 記事投稿フォーム 
-    ※モデル仮置き※
-    ※url仮置き※ --------------#%>
-  
+  <%# BootStrap仮置き %>
+  <%= link_to "一覧に戻る", tweets_path, class:"btn btn-primary back-top-btn" %>
+  <%# ActionText実装に伴い、form_withの記述削除しています %>
   <%= render 'form', tweet: @tweet %>
 </div>
 

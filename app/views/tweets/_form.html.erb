@@ -1,8 +1,19 @@
-<%= form_with model:@tweet, local: true do |f| %>
+<%= form_with(model: tweet, class: "tweet-form", local: true) do |f| %>
+  <% if tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+        <% tweet.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="field">
-    <%= f.label :tweet %>
-    <%= f.rich_text_area :tweet, autofocus: true, placeholder: "今何してる？" %>
+    <%= f.label :ツイートする, class: "form-label"%>
+    <%= f.rich_text_area :content, autofocus: true, class: "input-box tweet-text-box", placeholder: "今何してる？" %>
   </div>
 
   <div class="actions_btn">
