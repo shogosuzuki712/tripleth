@@ -26,7 +26,11 @@ userさん
       <div class="box_content">何月何日<br>タイトル<br>投稿内容</div>
   </div>
 <button type="button" class="btn btn-primary btn-lg">戻る</button>
-<button class="fixed_btn">新規投稿</button>
+
+<%# <% if user_signed_in? %>
+  <%= link_to "新規投稿", new_tweet_path, class: :fixed_btn %>
+<%# <% end %>
+
 </center>
 
 <footer>

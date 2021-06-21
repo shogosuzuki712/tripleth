@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
   root 'homes#index'
   resources :users, only: [:show, :edit]
-  resources :tweets, only: [:index, :new, :show, :delete]
+  resources :tweets, only: [:index, :new, :create, :show, :delete]
   resources :meals, only: [:index, :new, :show, :delete]
   resources :trainings, only: [:index, :new, :show, :delete]
   resources :successes, only: [:index, :new, :show, :delete]
