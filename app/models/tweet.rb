@@ -1,8 +1,5 @@
 class Tweet < ApplicationRecord
-  has_rich_text :tweet
+  has_rich_text :content
   belongs_to :user
   has_one_attached :image
-
-  validates :tweet, presence: true
-  end
 end
