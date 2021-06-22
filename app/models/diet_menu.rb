@@ -1,0 +1,2 @@
+class DietMenu < ApplicationRecord
+end
