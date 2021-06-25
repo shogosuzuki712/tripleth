@@ -1,0 +1,44 @@
+<%# Font Awesomeの読み込み %>
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+<%# ヘッダー  %>
+<%= render "shared/header" %>
+<%# / ヘッダー %>
+
+<div class="user-show-wrapper">
+
+<%# 左側のコンテンツ #%>
+<%= render "user_show_left" %>
+<%# / 左側のコンテンツ #%>
+
+<%# 右側のコンテンツ #%>
+  <div class="user-show-right-contents">
+  
+<%# ユーザー投稿一覧のコンテンツ選択ボタン %>
+    <div class="user-post-selector">
+      <%= link_to "Tweet", tweet_user_path(current_user.id) ,class:"btn btn-primary select-btn" %>
+      <%= link_to "Training", training_user_path(current_user.id) ,class:"btn btn-primary select-btn" %>
+      <%= link_to "Meal", meal_user_path(current_user.id) ,class:"btn btn-primary select-btn" %>
+      <%= link_to "Success", success_user_path(current_user.id) ,class:"btn btn-primary select-btn" %>
+    </div>
+<%# / ユーザー投稿一覧のコンテンツ選択ボタン %>
+
+<%# ユーザー投稿success一覧 %>
+    <div class="user-posts-wrapper">
+      <% @successes.each do |success| %>
+        <div class="user-posts">
+          <%= link_to success_path(success.id) do %>
+            <%= success.title.truncate(13) %>
+            <%= image_tag success.image.variant(resize:'200x200') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+<%# / ユーザー投稿success一覧 %>
+  </div>
+<%# / 右側のコンテンツ #%>
+</div>
+
+<%# フッター  %>
+<%= render "shared/footer" %>
+<%# / フッター %>
