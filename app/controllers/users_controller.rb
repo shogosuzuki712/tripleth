@@ -3,12 +3,6 @@ class UsersController < ApplicationController
 
   def show
     @tweets = @user.tweets
-    @meals = @user.meals
-    @trainings = @user.trainings
-    @successes = @user.successes
-
-    @instances = @tweets | @meals | @trainings | @successes
-    @instances.sort!{ |a, b| b.created_at <=> a.created_at }
   end
 
   def edit
@@ -37,7 +31,7 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
     @user_area = Area.find(@user.chara.area_id)
-    @user_gender = Gender.find(@user.chara.area_id)
+    @user_gender = Gender.find(@user.chara.gender_id)
   end
 
 end

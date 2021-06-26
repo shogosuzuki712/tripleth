@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   
   resources :users, only: [:show, :edit] do
     member do
-      get :tweet
       get :meal
       get :training
       get :success
