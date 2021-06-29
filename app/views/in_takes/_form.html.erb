@@ -1,0 +1,66 @@
+<%# フードカテゴリー・フードメニュー・カロリーを登録するフォーム %>
+
+<div class="record-menu in-takes-form">
+  
+  <%#<<<<< フードカテゴリーのプルダウンメニュー >>>>>%>
+  <%= collection_select :in_takes, :food_category_id, FoodCategory.all, :id, :name, {}, class: "food-category-menu" %>
+
+  <%#<<<<< 以下、カテゴリーに応じたフードメニューと、そのカロリー >>>>>%>
+      <div class="select-food main">
+        <%= collection_select :in_takes, :food_id, Main.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Main.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food side">
+        <%= collection_select :in_takes, :food_id, Side.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Side.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food salad">
+        <%= collection_select :in_takes, :food_id, Salad.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Salad.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food finger-food">
+        <%= collection_select :in_takes, :food_id, FingerFood.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, FingerFood.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food soup">
+        <%= collection_select :in_takes, :food_id, Soup.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Soup.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food drink">
+        <%= collection_select :in_takes, :food_id, Drink.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Drink.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food fruits">
+        <%= collection_select :in_takes, :food_id, Fruits.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Fruits.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food sweets">
+        <%= collection_select :in_takes, :food_id, Sweets.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Sweets.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food snack">
+        <%= collection_select :in_takes, :food_id, Snack.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Snack.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food alcohol">
+        <%= collection_select :in_takes, :food_id, Alcohol.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Alcohol.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+
+      <div class="select-food supplement">
+        <%= collection_select :in_takes, :food_id, Supplement.all, :id, :name, {}, class: "food-list" %>
+        <%= collection_select :in_takes, :food_id, Supplement.all, :id, :cal, {}, class: "food-list-cal" %>
+      </div>
+      
+      <%#----フードメニュー個別のカロリー値の表示----%>
+      <div class="add-cal"></div>
+  </div>
