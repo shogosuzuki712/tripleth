@@ -164,9 +164,16 @@
 .tweet-text-box{
   min-height: 12rem; //"min-"を追記。画像が枠内に収まるようにするため
   padding-top: 20px;
-  margin-top: 3rem;
 }
 
 .submit-end-btn{
   margin-bottom: 80px;
+}
+
+.tweet-title-box{
+  margin-bottom: 2rem;
+  padding:0.5rem;
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 3px;
 }

@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2021_06_09_110557) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -44,15 +43,13 @@ ActiveRecord::Schema.define(version: 2021_06_09_110557) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-ActiveRecord::Schema.define(version: 2021_05_25_092618) do
-
   create_table "charas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "text", null: false
-    t.integer "area", null: false
-    t.integer "gender", null: false
+    t.integer "area_id", null: false
+    t.integer "gender_id", null: false
     t.integer "age", null: false
-    t.integer "job_style", null: false
-    t.integer "exercise_style", null: false
+    t.integer "job_style_id", null: false
+    t.integer "exercise_style_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -60,9 +57,9 @@ ActiveRecord::Schema.define(version: 2021_05_25_092618) do
   end
 
   create_table "people", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "height"
-    t.integer "weight"
-    t.integer "goal"
+    t.integer "height", null: false
+    t.integer "weight", null: false
+    t.integer "goal", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -70,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_05_25_092618) do
   end
 
   create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -77,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_05_25_092618) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -91,4 +90,5 @@ ActiveRecord::Schema.define(version: 2021_05_25_092618) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "charas", "users"
   add_foreign_key "people", "users"
+  add_foreign_key "tweets", "users"
 end

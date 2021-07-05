@@ -12,11 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :ツイートする, class: "form-label"%>
-    <%= f.rich_text_area :content, autofocus: true, class: "input-box tweet-text-box", placeholder: "今何してる？" %>
+    <%= f.label :自由にツイートしてみよう！, class: "form-label"%>
+    <%= f.text_field :title, class: "tweet-title-box", placeholder: "タイトル" %>
+    <%= f.rich_text_area :content, class: "input-box tweet-text-box", placeholder: "今何してる？" %>
   </div>
 
-  <div class="actions_btn">
-    <%= f.submit %>
+  <div class="actions_btn submit-end-btn">
+    <%= f.submit :ツイートする%>
   </div>
 <% end %>
