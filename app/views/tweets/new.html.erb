@@ -1,10 +1,6 @@
 <%###.*_*.### ツイート記事新規投稿ページ ###.*_*.###%>
 
-
-<%#`````` ヘッダー ```````#%>
-<header></header>
-<%#```` 後ほど置き換え ````#%>
-
+<%= render 'shared/header' %>
 
 <div class="post post-tweet">
   <%# BootStrap仮置き %>
@@ -13,4 +9,4 @@
   <%= render 'form', tweet: @tweet %>
 </div>
 
-<footer></footer>
+<%= render 'shared/footer' %>
