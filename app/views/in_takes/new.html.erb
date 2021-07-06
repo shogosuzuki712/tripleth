@@ -1,36 +1,66 @@
+
+<%= render "shared/header"%>
+
 <div class="record-new">
+
   <div class="record-left">
-    <div class="record-calendar">カレンダー</div>
+    <%# ------- カレンダー表示 --------- %>
+    <div class="record-calendar">
+      <%= month_calendar do |date| %>
+        <%= date %>
+      <% end %>
+    </div>
+
     <div class="record-graph">グラフ</div>
   </div>
+
+
   <div class="record-right">
     <div class="record-title" >in_takes</div>
-    
+
     <%# ここから登録フォーム %>
-    <div class="record-form">
-      <div class="record-data" >日付</div>
-      
-      <%#<<<< 食べた食事とカロリーを選択できる部分フォームをレンダリング >>>>%>
-      <%= render "form" %>
-      <div>
-        <button id="add-form">追加する</button>
+    <%= form_with model: @in_take, url: in_takes_path(current_user.id), local: true do |f| %>
+    <%# ------- バリデーションエラー文 --------- %>
+    <% if @in_take.errors.any? %>
+      <div class="in-takes-error-alert">
+        <ul>
+          <% @in_take.errors.full_messages.each do |message| %>
+            <li class='in-takes-error-message'><%= message %></li>
+          <% end %>
+        </ul>
       </div>
-        <%#-----追加ボタンで以下のスクリプト発火-----%>
+    <% end %>
+    <%# ------- ここまで --------- %>
 
-      <%#<<<< 同じ部分フォームを追加するJavaScript 
-              Rubyのコードを使用したいためこちらに記述 >>>>%>
-      <script>
-        const addForm = document.getElementById("add-form");
-        addForm.addEventListener("click", ()=>{
-          const insertHtml = "<%= escape_javascript(render "form") %>"; //追加するhtml.erb
-          const inTakesForm = document.getElementsByClassName("in-takes-form"); //投稿フォーム
-          inTakesForm[inTakesForm.length - 1].insertAdjacentHTML("afterend", insertHtml);
-        });
-      </script>
+      <div class="record-form">
+        <div class="record-data" >
+          <%= f.datetime_select :start_time %>
+        </div>
+        <%#<<<< 食べた食事とカロリーを選択できる部分フォームをレンダリング >>>>%>
+          <%= render "form" %>
+          <div>
+            <%# ****type=buttonを与えないとsubmitされてしまう**** %>
+            <button type="button" id="add-form">追加する</button>
+          </div>
+          <%#-----追加ボタンで以下のスクリプト発火-----%>
 
-      <%#-------合計カロリー値の表示---------%>
-      <div class="record-menu">合計 <span id="sum-cal">0</span> kcal</div>
-      <div class="record-input" >登録ボタン</div>
-    </div>
+          <%#<<<< 同じ部分フォームを追加するJavaScript 
+                  Rubyのコードを使用したいためこちらに記述 >>>>%>
+          <script>
+            const addForm = document.getElementById("add-form");
+            addForm.addEventListener("click", ()=>{
+              const insertHtml = "<%= escape_javascript(render "form") %>"; //追加するhtml.erb
+              const inTakesForm = document.getElementsByClassName("in-takes-form"); //投稿フォーム
+              inTakesForm[inTakesForm.length - 1].insertAdjacentHTML("afterend", insertHtml);
+            });
+          </script>
+
+        <%#-------合計カロリー値の表示---------%>
+        <div class="record-menu">合計 <span id="sum-cal">0</span> kcal</div>
+        <div class="record-input" >
+          <%= f.submit "登録ボタン", id:"in-takes-submit" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
