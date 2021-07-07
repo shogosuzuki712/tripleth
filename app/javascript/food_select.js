@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-  if(document.URL.match("/in_takes/new")){
+  if(document.URL.match("/in_takes/new") || document.URL.match("/in_takes.")){
     
     const foodCategory = document.getElementsByClassName("food-category-menu"); //フードカテゴリープルダウン(各投稿フォームに1つ)
     const selectFoods = document.getElementsByClassName("select-food"); //フードメニュープルダウン表示(各投稿フォームに11つ)

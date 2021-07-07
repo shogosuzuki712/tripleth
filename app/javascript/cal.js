@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-  if(document.URL.match("/in_takes/new")){
+  if(document.URL.match("/in_takes/new") || document.URL.match("/in_takes.")){
 
     const cal = function(){ //選択したフードメニューに応じたカロリーが表示される関数
       const foodListCal = document.getElementsByClassName("food-list-cal"); //カロリープルダウン(各投稿フォームに11つ)
@@ -19,13 +19,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
               カロリーは${cal}kcalです
             </div>`;
           const addCal = document.getElementsByClassName("add-cal"); //HTMLを挿入する箇所(各投稿フォームに1つ)
-          const announcedCal = document.getElementsByClassName("announced-cal"); //挿入するHTMLのclass名
-      
+
           //--- 前回表示されたカロリーが残っている場合は削除 ---//
-          if(announcedCal.length === addCal.length){
-            announcedCal[c].remove();
+          if(addCal[c].outerText){
+            addCal[c].removeChild(addCal[c].firstElementChild);
           }
-          
+
           // カロリー表示
           addCal[c].insertAdjacentHTML("afterbegin", mainCalHtml);
           });
@@ -36,20 +35,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const deleteCal = function(){ //別のフードカテゴリーを選択した場合、前回表示のカロリーが消える関数
     
       const foodCategory = document.getElementsByClassName("food-category-menu"); //フードカテゴリープルダウン(各投稿フォームに1つ)
-      const announcedCal = document.getElementsByClassName("announced-cal"); //挿入するHTMLのclass名
+      const addCal = document.getElementsByClassName("add-cal"); //HTMLを挿入する箇所(各投稿フォームに1つ)
 
       for(let d = (foodCategory.length - 1); d < foodCategory.length; d++){
         foodCategory[d].addEventListener("change", ()=>{
-          if(foodCategory.length === announcedCal.length){
-            announcedCal[d].remove();
+          if(addCal[d].outerText){
+            addCal[d].removeChild(addCal[d].firstElementChild);
           };
         });
       };
     };
-    //                 【課題】                      //
-    // この処理だと、複数投稿フォームが存在する場合、       //
-    // かつ2箇所以上のフードカテゴリーの選択肢を変えた場合  //
-    // 1つ目のカロリーしか消せない                     //
+
 
     cal();
     deleteCal();

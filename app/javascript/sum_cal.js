@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-  if(document.URL.match("/in_takes/new")){
+  if(document.URL.match("/in_takes/new") || document.URL.match("/in_takes.")){
 
     const totalCal = function(){ //カロリーの合計値が表示される関数
       const foodList = document.getElementsByClassName("food-list"); //フードメニュープルダウン(各投稿フォームに11つ)
@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const array = []; //空の配列に各投稿フォームのカロリーを格納し合計する
     totalCal();
-
+    minusCal();
+    
     const addForm = document.getElementById("add-form"); //追加するボタン
     addForm.addEventListener("click", ()=>{ //フォームを追加したタイミングでも読み込みが必要
       totalCal();
