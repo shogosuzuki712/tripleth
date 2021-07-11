@@ -1,6 +1,7 @@
 class InTakesController < ApplicationController
   def new
     @in_take = InTake.new
+    @in_takes = InTake.all
   end
 
   def create
@@ -13,8 +14,10 @@ class InTakesController < ApplicationController
         @in_take.save  #c番目のデータ登録
         c += 1  #cに1追加する
       end
+      @in_takes = InTake.all
       redirect_to new_in_take_path
     else
+      @in_takes = InTake.all
       @in_take = InTake.new(in_take_params)
       @in_take.valid?
       render "new"

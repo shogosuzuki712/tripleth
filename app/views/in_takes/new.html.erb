@@ -6,8 +6,11 @@
   <div class="record-left">
     <%# ------- カレンダー表示 --------- %>
     <div class="record-calendar">
-      <%= month_calendar do |date| %>
-        <%= date %>
+      <%= month_calendar events: @in_takes do |date, in_takes| %>
+        <%= date.day %>
+        <% in_takes.each do |in_take| %>
+          id<%= in_take.food_id %>
+        <% end %>
       <% end %>
     </div>
 
