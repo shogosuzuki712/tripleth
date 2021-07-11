@@ -10,10 +10,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         for(let i = 11 * c; i < foodList.length; i++){ //その投稿フォーム内のフードメニュー選択
           foodList[i].addEventListener("change", ()=>{
 
-          const id = foodList[i].value; // 選択されているフードメニューのid
-          foodListCal[i].value = id; //カロリープルダウンのidに代入
-          
-          const cal = foodListCal[i][id - 1].text; //カロリーをテキストとして取得
+          const foodId = foodList[i].value; // 選択されているフードメニューのid
+          const foodListCalId = foodListCal[i].value = foodId; //カロリープルダウンのidに代入
+
+          const foodCategory = document.getElementsByClassName("food-category-menu"); //フードカテゴリープルダウン(各投稿フォームに1つ)
+          const foodCategoryId = foodCategory[Math.floor(i / 11)].value
+
+          const cal = foodListCal[i][foodListCalId.replace(`${foodCategoryId}`,"") - 1].text; //カロリーをテキストとして取得
           const mainCalHtml = `
             <div class="announced-cal">
               カロリーは${cal}kcalです

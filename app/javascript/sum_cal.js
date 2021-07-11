@@ -8,8 +8,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       for(let i=foodList.length - 11; i<foodList.length; i++){
         foodList[i].addEventListener("change",()=>{
 
+          const foodCategory = document.getElementsByClassName("food-category-menu"); //フードカテゴリープルダウン(各投稿フォームに1つ)
+          const foodCategoryId = foodCategory[Math.floor(i / 11)].value
+
           const calId = foodListCal[i].value; //選択されたフードメニューの、カロリーのid
-          const cal = foodListCal[i][calId - 1].text; //カロリーをテキストとして取得
+          const cal = foodListCal[i][calId.replace(`${foodCategoryId}`,"") - 1].text; //カロリーをテキストとして取得
 
           // 選択した投稿フォームを区別し、カロリーを数値として代入
           // この処理によって同じ投稿フォーム内でカロリーの値が変わっても、上書きされる
