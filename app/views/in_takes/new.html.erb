@@ -8,15 +8,53 @@
     <div class="record-calendar">
       <%= month_calendar events: @in_takes do |date, in_takes| %>
         <%= date.day %>
+        
         <% in_takes.each do |in_take| %>
-          id<%= in_take.food_id %>
+        
+        <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を表示＿＿＿＿＿ %>
+
+          <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
+            <%= Main.find(in_take.food_id).cal %> <%# 主食 %>
+
+          <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
+            <%= Side.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
+            <%= Salad.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
+            <%= FingerFood.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
+            <%= Soup.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
+            <%= Drink.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
+            <%= Fruits.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
+            <%= Sweets.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
+            <%= Snack.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
+            <%= Alcohol.find(in_take.food_id).cal %>
+
+          <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
+            <%= Supplement.find(in_take.food_id).cal %>
+          <% end %>
+          
+          <%# ＿＿＿＿＿ ここまで ＿＿＿＿＿ %>
+
         <% end %>
       <% end %>
     </div>
 
     <div class="record-graph">グラフ</div>
   </div>
-
 
   <div class="record-right">
     <div class="record-title" >in_takes</div>

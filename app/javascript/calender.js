@@ -10,8 +10,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
         day[i].textContent = `${dayCalArray[0]} 合計${daySumCal}kcal` //カレンダーの表示を変更
       };
     };
-  
-
-  
   };
 });
