@@ -2,14 +2,15 @@
 <%= render "shared/header"%>
 
 <div class="record-new">
+  <div class="record-left">  <%#=== ページ左側 %>
 
-  <div class="record-left">
     <%# ------- カレンダー表示 --------- %>
     <div class="record-calendar">
       <%= month_calendar events: @in_takes do |date, in_takes| %>
         <%= date.day %>
         
         <% in_takes.each do |in_take| %>
+
 
         <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を表示＿＿＿＿＿ %>
 
@@ -46,158 +47,166 @@
           <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
             <%= Supplement.find(in_take.food_id).cal %>
           <% end %>
-          
-          <%# ＿＿＿＿＿ ここまで ＿＿＿＿＿ %>
+          <%# ＿＿＿＿＿ 条件分岐ここまで ＿＿＿＿＿ %>
+        
         <% end %>
       <% end %>
-    </div>
+    </div> <%#=== カレンダーここまで %>
 
+
+
+    <%# ------- グラフ表示 --------- %>
     <div class="record-graph">
-    <% array = [] %>
-    <% @in_takes.each do |in_take| %>
-      
-      <% if array.length != 0 %>
+      <% array = [] %> <%#=== 空の配列 %>
+      <% @in_takes.each do |in_take| %>
         
-        <% i=0 %>
-        <% k=0 %>
+        <% if array.length != 0 %>
+          <% i=0 %>
+          <% e=0 %>
+          <% array.length.times do |i| %> 
 
-        <% array.length.times do |i| %> 
-
-          <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を表示＿＿＿＿＿ %>
-          <% if array[i][:start_time] == in_take.start_time %>
-            <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Main.find(in_take.food_id).cal.to_i %> <%# 主食 %>
-              <% i += 1 %>
-            
-            <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Side.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Salad.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-              <% array[i][:food_cal] = array[i][:food_cal] + FingerFood.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Soup.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Drink.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Fruits.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Sweets.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Snack.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Alcohol.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-
-            <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-              <% array[i][:food_cal] = array[i][:food_cal] + Supplement.find(in_take.food_id).cal.to_i %>
-              <% i += 1 %>
-            <% end %>
-
-          <% else %>
-            <% i += 1 %>
-            <% k += 1 %>
-        
-            <% if k == array.length %>
-              <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を表示＿＿＿＿＿ %>
+            <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を取得______________%>
+            <%# _______________且つ:start_timeが同じ値の場合、合算__________＿＿＿＿＿ %>
+            <% if array[i][:start_time] == in_take.start_time %>
               <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-                <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
-
+                <% array[i][:food_cal] += Main.find(in_take.food_id).cal.to_i %> <%# 主食 %>
+                <% i += 1 %>
+              
               <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-                <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Side.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-                <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Salad.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-                <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += FingerFood.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-                <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Soup.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-                <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Drink.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-                <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Fruits.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-                <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Sweets.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-                <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Snack.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-                <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Alcohol.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
 
               <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-                <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% array[i][:food_cal] += Supplement.find(in_take.food_id).cal.to_i %>
+                <% i += 1 %>
               <% end %>
-            <% end %>
+            <% else %> <%#== 一致する:start_timeが存在しない場合 else of "if array[i][:start_time] == in_take.start_time" %>
+              
+              <% i += 1 %>
+              <% e += 1 %> <%#== 一致しないとeの値が増える仕組み %>
+          
+              <% if e == array.length %> <%#== 全て一致しな買った場合は新しく配列に値(ハッシュ)が入る %>
+                <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
+                  <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
 
+                <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
+                  <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
+                  <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
+                  <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
+                  <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
+                  <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
+                  <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
+                  <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
+                  <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
+                  <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+                <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
+                  <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+                <% end %>
+              <% end %> <%#=== end of "if e == array.length" %>
+
+            <% end %> <%#=== end of "if array[i][:start_time] == in_take.start_time" %>
+          <% end %> <%#=== end of "array.length.times do |i|" %> 
+
+        <% else %> <%#=== arrayが空の場合 else of "if array.length != 0" %>
+
+          <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
+            <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
+
+          <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
+            <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
+            <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
+            <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
+            <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
+            <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
+            <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
+            <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
+            <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
+            <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+          <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
+            <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
           <% end %>
-        <% end %> 
+        <% end %> <%#=== end of "if array.length != 0" %>
+      <% end %> <%#=== end of "@in_takes.each do |in_take|" %>
 
-      <% else %>
-        <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を表示＿＿＿＿＿ %>
-        <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-          <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
+      <%# -----------配列を時間ごとではなく、日付ごとにまとめる-------------- %>
+      <% @day_cal = array.group_by_day{|i| i[:start_time]} %>
 
-        <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-          <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+      <%# ------------------------グラフに表示--------------------- %>
+      <%= line_chart @day_cal.map{|k,v| [k, v.sum{|hash| hash[:food_cal]}]} %>
+    
+    </div> <%#=== グラフここまで %>
+  </div> <%#=== ページ左側ここまで %>
 
-        <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-          <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
 
-        <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-          <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
 
-        <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-          <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
 
-        <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-          <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-        <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-          <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-        <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-          <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-        <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-          <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-        <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-          <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-        <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-          <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-        <% end %>
-      <% end %> <%# if array.length != 0のエンド%>
-    <% end %> <%#eachのend%>
-
-        <%= line_chart array.pluck(:start_time, :food_cal) %>
-    </div>
-  
-  </div>
-
-  <div class="record-right">
+  <div class="record-right"> <%#=== ページ右側 %>
     <div class="record-title" >in_takes</div>
 
     <%# ここから登録フォーム %>
