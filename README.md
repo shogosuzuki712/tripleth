@@ -9,6 +9,7 @@
 ### Association
 - has_one :users_chara
 - has_one :users_person
+- has_many :in_takes
 
 
 ## charas テーブル
@@ -40,3 +41,21 @@
 ### Association
 - belongs_to :user, optional: true
 - has_one_attached :image
+
+
+<br>
+<br>
+
+## in_takes テーブル
+
+<br>
+
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| food-category-id | integer | null: false |
+| food-id | integer | null: false |
+| start_time | datetime | null:false |
+| user_id | references | null:false, foreign_key: true |
+
+### Association
+- belongs_to :user

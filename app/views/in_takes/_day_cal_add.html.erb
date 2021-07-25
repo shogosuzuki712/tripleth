@@ -1,0 +1,47 @@
+<%#-------------------------- 配列に同値の :start_time が存在する場合、カロリー値を合算する部分テンプレート --------------------------%>
+
+
+<% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
+  <% array[i][:food_cal] += Main.find(in_take.food_id).cal.to_i %> <%# 主食 %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
+  <% array[i][:food_cal] += Side.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
+  <% array[i][:food_cal] += Salad.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
+  <% array[i][:food_cal] += FingerFood.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
+  <% array[i][:food_cal] += Soup.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
+  <% array[i][:food_cal] += Drink.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
+  <% array[i][:food_cal] += Fruits.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
+  <% array[i][:food_cal] += Sweets.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
+  <% array[i][:food_cal] += Snack.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
+  <% array[i][:food_cal] += Alcohol.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+
+<% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
+  <% array[i][:food_cal] += Supplement.find(in_take.food_id).cal.to_i %>
+  <% i += 1 %>
+<% end %>

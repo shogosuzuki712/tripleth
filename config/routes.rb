@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :trainings, only: [:index, :new, :show, :delete]
   resources :successes, only: [:index, :new, :show, :delete]
   resources :records, only: [:index]
-  resources :in_takes, only: [:new, :show, :delete]
+  resources :in_takes, only: [:new, :create, :show, :delete]
   resources :out_takes, only: [:new, :show, :delete]
   resources :checks, only: [:new, :create, :show, :delete]
 end

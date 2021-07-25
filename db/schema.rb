@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_13_175619) do
+ActiveRecord::Schema.define(version: 2021_06_30_033551) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(version: 2021_06_13_175619) do
     t.index ["user_id"], name: "index_charas_on_user_id"
   end
 
+  create_table "in_takes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "start_time", null: false
+    t.integer "food_category_id", null: false
+    t.integer "food_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_in_takes_on_user_id"
+
   create_table "checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "weight", null: false
     t.datetime "start_time", null: false
@@ -83,7 +92,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_175619) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -97,6 +105,7 @@ ActiveRecord::Schema.define(version: 2021_06_13_175619) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "charas", "users"
+  add_foreign_key "in_takes", "users"
   add_foreign_key "checks", "users"
   add_foreign_key "people", "users"
   add_foreign_key "tweets", "users"
