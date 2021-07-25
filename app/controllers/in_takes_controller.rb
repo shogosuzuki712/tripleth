@@ -1,7 +1,7 @@
 class InTakesController < ApplicationController
   def new
     @in_take = InTake.new
-    @in_takes = InTake.all
+    in_takes
   end
 
   def create
@@ -14,10 +14,10 @@ class InTakesController < ApplicationController
         @in_take.save  #c番目のデータ登録
         c += 1  #cに1追加する
       end
-      @in_takes = InTake.all
+      in_takes
       redirect_to new_in_take_path
     else
-      @in_takes = InTake.all
+      in_takes
       @in_take = InTake.new(in_take_params)
       @in_take.valid?
       render "new"
@@ -32,8 +32,12 @@ class InTakesController < ApplicationController
 
 
   private 
+
   def in_take_params
     params.require(:in_take).permit(:start_time).merge(user_id: params[:format])
   end
-  
+
+  def in_takes
+    @in_takes = InTake.where(user_id: current_user.id)
+  end
 end
