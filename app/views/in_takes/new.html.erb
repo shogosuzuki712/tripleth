@@ -1,61 +1,25 @@
 
-<%= render "shared/header"%>
+<%= render "shared/header"%> <%#=== ヘッダー読み込み %>
 
 <div class="record-new">
-  <div class="record-left">  <%#=== ページ左側 %>
+  <%# ------- ページ左側 -------- %>
+  <div class="record-left">
 
     <%# ------- カレンダー表示 --------- %>
     <div class="record-calendar">
       <%= month_calendar events: @in_takes do |date, in_takes| %>
         <%= date.day %>
-        
         <% in_takes.each do |in_take| %>
-
-
-        <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を表示＿＿＿＿＿ %>
-
-          <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-            <%= Main.find(in_take.food_id).cal %> <%# 主食 %>
-
-          <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-            <%= Side.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-            <%= Salad.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-            <%= FingerFood.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-            <%= Soup.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-            <%= Drink.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-            <%= Fruits.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-            <%= Sweets.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-            <%= Snack.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-            <%= Alcohol.find(in_take.food_id).cal %>
-
-          <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-            <%= Supplement.find(in_take.food_id).cal %>
-          <% end %>
-          <%# ＿＿＿＿＿ 条件分岐ここまで ＿＿＿＿＿ %>
-        
+          <%# 。＊。＊ ActiveHashから対応するカロリーを表示 。＊。＊#%>
+          <%= render partial: "calender_cal", locals: {in_take: in_take} %>
+          <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊ 。＊。＊。＊。#%>
         <% end %>
       <% end %>
-    </div> <%#=== カレンダーここまで %>
+    </div>
+    <%# ------- カレンダーここまで ------ %>
 
 
-
-    <%# ------- グラフ表示 --------- %>
+    <%# --------- グラフ表示 ----------- %>
     <div class="record-graph">
       <% array = [] %> <%#=== 空の配列 %>
       <% @in_takes.each do |in_take| %>
@@ -64,179 +28,80 @@
           <% i=0 %>
           <% e=0 %>
           <% array.length.times do |i| %> 
-
-            <%# ＿＿＿＿＿条件分岐で各ActiveHashより、対応するIdのカロリー値を取得______________%>
-            <%# _______________且つ:start_timeが同じ値の場合、合算__________＿＿＿＿＿ %>
+            
             <% if array[i][:start_time] == in_take.start_time %>
-              <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-                <% array[i][:food_cal] += Main.find(in_take.food_id).cal.to_i %> <%# 主食 %>
-                <% i += 1 %>
-              
-              <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-                <% array[i][:food_cal] += Side.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-                <% array[i][:food_cal] += Salad.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-                <% array[i][:food_cal] += FingerFood.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-                <% array[i][:food_cal] += Soup.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-                <% array[i][:food_cal] += Drink.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-                <% array[i][:food_cal] += Fruits.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-                <% array[i][:food_cal] += Sweets.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-                <% array[i][:food_cal] += Snack.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-                <% array[i][:food_cal] += Alcohol.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-
-              <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-                <% array[i][:food_cal] += Supplement.find(in_take.food_id).cal.to_i %>
-                <% i += 1 %>
-              <% end %>
-            <% else %> <%#== 一致する:start_timeが存在しない場合 else of "if array[i][:start_time] == in_take.start_time" %>
+              <%# 。＊。＊ 配列に同値の :start_time が存在する場合、カロリー値を合算 。＊。＊#%>
+              <% render partial: "day_cal_add", locals: {in_take: in_take, array: array, i: i} %>
+              <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊ 。#%>
+            <% else %> <%#== 一致する:start_timeが存在しない場合 %>
               
               <% i += 1 %>
               <% e += 1 %> <%#== 一致しないとeの値が増える仕組み %>
-          
-              <% if e == array.length %> <%#== 全て一致しな買った場合は新しく配列に値(ハッシュ)が入る %>
-                <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-                  <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
 
-                <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-                  <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+              <% if e == array.length %> <%#== 全て一致しなかった場合、新しく配列に値(ハッシュ)が入る %>
+                <%# 。＊。＊ 配列に新規登録 。＊。＊#%>
+                <% render partial: "day_cal_new", locals: {in_take: in_take, array: array} %>
+                <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊#%>
+              <% end %> 
+            <% end %> <%#=== (end of "if array[i][:start_time] == in_take.start_time") %>
+          <% end %> <%#=== (end of "array.length.times do |i|") %> 
 
-                <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-                  <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-                  <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-                  <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-                  <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-                  <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-                  <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-                  <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-                  <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-                <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-                  <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-                <% end %>
-              <% end %> <%#=== end of "if e == array.length" %>
-
-            <% end %> <%#=== end of "if array[i][:start_time] == in_take.start_time" %>
-          <% end %> <%#=== end of "array.length.times do |i|" %> 
-
-        <% else %> <%#=== arrayが空の場合 else of "if array.length != 0" %>
-
-          <% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
-            <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
-
-          <% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
-            <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
-            <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
-            <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
-            <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
-            <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
-            <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
-            <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
-            <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
-            <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-
-          <% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
-            <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
-          <% end %>
-        <% end %> <%#=== end of "if array.length != 0" %>
+        <% else %> <%#=== arrayが空の場合 (else of "if array.length != 0") %>
+          <%# 。＊。＊ 配列に新規登録 。＊。＊#%>
+          <% render partial: "day_cal_new", locals: {in_take: in_take, array: array} %>
+          <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊#%>
+        <% end %>
       <% end %> <%#=== end of "@in_takes.each do |in_take|" %>
 
-      <%# -----------配列を時間ごとではなく、日付ごとにまとめる-------------- %>
+
+      <%# __________配列を時間ごとではなく、日付ごとにまとめる___________ %>
       <% @day_cal = array.group_by_day{|i| i[:start_time]} %>
 
-      <%# ------------------------グラフに表示--------------------- %>
+      <%# ______________________グラフに表示________________________ %>
       <%= line_chart @day_cal.map{|k,v| [k, v.sum{|hash| hash[:food_cal]}]} %>
     
-    </div> <%#=== グラフここまで %>
-  </div> <%#=== ページ左側ここまで %>
+    </div>
+    <%# ------- グラフここまで ------ %>
+  </div>
+  <%# ------- ページ左側ここまで ------ %>
 
 
 
-
-  <div class="record-right"> <%#=== ページ右側 %>
+  <%# ------- ページ右側 -------- %>
+  <div class="record-right">
     <div class="record-title" >in_takes</div>
 
-    <%# ここから登録フォーム %>
+    <%# -------- ここから登録フォーム -------- %>
     <%= form_with model: @in_take, url: in_takes_path(current_user.id), local: true do |f| %>
-    <%# ------- バリデーションエラー文 --------- %>
-    <% if @in_take.errors.any? %>
-      <div class="in-takes-error-alert">
-        <ul>
-          <% @in_take.errors.full_messages.each do |message| %>
-            <li class='in-takes-error-message'><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%# ------- ここまで --------- %>
+    
+      <%# ------- バリデーションエラー文 --------- %>
+      <% if @in_take.errors.any? %>
+        <div class="in-takes-error-alert">
+          <ul>
+            <% @in_take.errors.full_messages.each do |message| %>
+              <li class='in-takes-error-message'><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%# ------- エラー文ここまで --------- %>
 
       <div class="record-form">
         <div class="record-data" >
-          <%= f.datetime_select :start_time %>
+          <%= f.datetime_select :start_time %> <%#=== 日付選択 %>
         </div>
-        <%#<<<< 食べた食事とカロリーを選択できる部分フォームをレンダリング >>>>%>
-          <%= render "form" %>
-          <div>
-            <%# ****type=buttonを与えないとsubmitされてしまう**** %>
-            <button type="button" id="add-form">追加する</button>
-          </div>
-          <%#-----追加ボタンで以下のスクリプト発火-----%>
 
-          <%#<<<< 同じ部分フォームを追加するJavaScript 
-                  Rubyのコードを使用したいためこちらに記述 >>>>%>
+        <%#。＊。＊ 食べた食事・そのカロリーを選択できるフォーム 。＊。＊ %>
+        <%= render "form" %>
+        <%#。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。%>
+        
+        <button type="button" id="add-form">追加する</button> <%#=== 追加するボタン(type=buttonを与えないとsubmitされてしまう) %>
+        
+
+          <%#_________🔥_________追加するボタンで以下のスクリプト発火___________🔥__________%>
+
+          <%#<<<<<<<<<<<< 同じ部分フォームを追加するJavaScript 
+                          Rubyのコードを使用したいためこちらに記述 >>>>>>>>>>>>>>>%>
           <script>
             const addForm = document.getElementById("add-form");
             addForm.addEventListener("click", ()=>{
@@ -245,13 +110,19 @@
               inTakesForm[inTakesForm.length - 1].insertAdjacentHTML("afterend", insertHtml);
             });
           </script>
+          <%#<<<<<<<<<<<< ここまで >>>>>>>>>>>>>>>%>
 
-        <%#-------合計カロリー値の表示---------%>
-        <div class="record-menu">合計 <span id="sum-cal">0</span> kcal</div>
+
+        <%#-------- 合計カロリー値の表示 ---------%>
+        <div class="record-menu">合計 <span id="sum-cal">0</span> kcal </div>
+
+        <%#-------- 登録ボタン ---------%>
         <div class="record-input" >
           <%= f.submit "登録ボタン", id:"in-takes-submit" %>
         </div>
-      </div>
+      </div> 
     <% end %>
+    <%#-------- 登録フォームここまで ---------%>
   </div>
+  <%#-------- ページ右側ここまで ---------%>
 </div>
