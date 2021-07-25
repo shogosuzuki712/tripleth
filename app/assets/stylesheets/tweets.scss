@@ -162,7 +162,7 @@
 }
 
 .tweet-text-box{
-  height: 12rem;
+  min-height: 12rem; //"min-"を追記。画像が枠内に収まるようにするため
   padding-top: 20px;
   margin-top: 3rem;
 }

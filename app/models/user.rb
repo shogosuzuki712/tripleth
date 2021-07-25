@@ -3,8 +3,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-  has_many :in_takes #in_takeモデルとのアソシエーションを追加；荒井
   
+  # アソシエーション
+  has_one :chara
+  has_one :person
+  has_many :tweets
+  has_many :in_takes #in_takeモデルとのアソシエーションを追加；荒井
+
+  # バリデーション
   validates :name, presence: true
 end
