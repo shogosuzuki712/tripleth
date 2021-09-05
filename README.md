@@ -40,3 +40,17 @@
 ### Association
 - belongs_to :user, optional: true
 - has_one_attached :image
+
+
+## tweets テーブル
+
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| tweet                  | text       | null: false                    |
+| user_id                | references | null: false                    |
+|                        | integer    | null: false                    |
+
+### Association
+- belongs_to :user
+- has_many: tweet_comments
+- has_one_attached :image
