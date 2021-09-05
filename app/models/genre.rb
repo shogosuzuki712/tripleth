@@ -5,4 +5,7 @@ class Genre < ActiveHash::Base
     {id: 3, name: 'トレーニング法'},
     {id: 4, name: '成功体験'},
   ]
+
+  include ActiveHash::Associations
+  has_many :diet_menu
 end
