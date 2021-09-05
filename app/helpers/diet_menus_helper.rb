@@ -1,0 +1,2 @@
+module DietMenusHelper
+end
