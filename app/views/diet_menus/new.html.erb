@@ -11,13 +11,17 @@
   <%#----------- 一覧に戻るボタン
     *リンク先仮置き*
     *bootstrap仮置き* -----------#%>
-  <%= link_to "一覧に戻る", "#" ,class:"btn btn-primary back-top-btn" %>
+  <%= link_to "一覧に戻る", diet_menus_path ,class:"btn btn-primary back-top-btn" %>
 
 
   <%#----------- 記事投稿フォーム 
     ※モデル仮置き※
     ※url仮置き※ --------------#%>
-  <%= form_with model:@hoge, url: "#", class: "successes-form", local: true do |f| %>
+  <%= form_with model:@diet_menu, url: "#", class: "successes-form", local: true do |f| %>
+    <div class="post-successes-title">
+      <%= f.label :ジャンル, class: "form-label"%>
+      <%= f.collection_select(:genre_id, Genre.all, :id, :name, {},{class: "input-box title-box"}) %>
+    </div>
     <div class="post-successes-title">
       <%= f.label :タイトル, class: "form-label"%>
       <%= f.text_field :title, autofocus: true, class: "input-box title-box", placeholder: "成功体験などを記入"%>
