@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   resources :in_takes, only: [:new, :show, :delete]
   resources :out_takes, only: [:new, :show, :delete]
   resources :checks, only: [:new, :create, :show, :delete]
+  resources :diet_menus, only: [:index, :new, :create, :show, :delete]
 end
