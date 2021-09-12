@@ -23,18 +23,18 @@
     </div>
 <%# / ユーザー投稿一覧のコンテンツ選択ボタン %>
 
-<%# ユーザー投稿一覧 %>
+<%# ユーザー投稿success一覧 %>
     <div class="user-posts-wrapper">
-      <% @tweets.each do |tweet| %>
+      <% @successes.each do |success| %>
         <div class="user-posts">
-          <%= link_to tweet_path(tweet.id) do %>
-            <%= tweet.title.truncate(13) %>
-            <%= image_tag tweet.image.variant(resize:'200x200') %>
+          <%= link_to success_path(success.id) do %>
+            <%= success.title.truncate(13) %>
+            <%= image_tag success.image.variant(resize:'200x200') %>
           <% end %>
         </div>
       <% end %>
     </div>
-<%# / ユーザー投稿一覧 %>
+<%# / ユーザー投稿success一覧 %>
   </div>
 <%# / 右側のコンテンツ #%>
 </div>

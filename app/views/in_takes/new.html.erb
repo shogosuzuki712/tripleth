@@ -1,17 +1,128 @@
+
+<%= render "shared/header"%> <%#=== ヘッダー読み込み %>
+
 <div class="record-new">
+  <%# ------- ページ左側 -------- %>
   <div class="record-left">
-    <div class="record-calendar">カレンダー</div>
-    <div class="record-graph">グラフ</div>
+
+    <%# ------- カレンダー表示 --------- %>
+    <div class="record-calendar">
+      <%= month_calendar events: @in_takes do |date, in_takes| %>
+        <%= date.day %>
+        <% in_takes.each do |in_take| %>
+          <%# 。＊。＊ ActiveHashから対応するカロリーを表示 。＊。＊#%>
+          <%= render partial: "calender_cal", locals: {in_take: in_take} %>
+          <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊ 。＊。＊。＊。#%>
+        <% end %>
+      <% end %>
+    </div>
+    <%# ------- カレンダーここまで ------ %>
+
+
+    <%# --------- グラフ表示 ----------- %>
+    <div class="record-graph">
+      <% array = [] %> <%#=== 空の配列 %>
+      <% @in_takes.each do |in_take| %>
+        
+        <% if array.length != 0 %>
+          <% i=0 %>
+          <% e=0 %>
+          <% array.length.times do |i| %> 
+            
+            <% if array[i][:start_time] == in_take.start_time %>
+              <%# 。＊。＊ 配列に同値の :start_time が存在する場合、カロリー値を合算 。＊。＊#%>
+              <% render partial: "day_cal_add", locals: {in_take: in_take, array: array, i: i} %>
+              <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊ 。#%>
+            <% else %> <%#== 一致する:start_timeが存在しない場合 %>
+              
+              <% i += 1 %>
+              <% e += 1 %> <%#== 一致しないとeの値が増える仕組み %>
+
+              <% if e == array.length %> <%#== 全て一致しなかった場合、新しく配列に値(ハッシュ)が入る %>
+                <%# 。＊。＊ 配列に新規登録 。＊。＊#%>
+                <% render partial: "day_cal_new", locals: {in_take: in_take, array: array} %>
+                <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊#%>
+              <% end %> 
+            <% end %> <%#=== (end of "if array[i][:start_time] == in_take.start_time") %>
+          <% end %> <%#=== (end of "array.length.times do |i|") %> 
+
+        <% else %> <%#=== arrayが空の場合 (else of "if array.length != 0") %>
+          <%# 。＊。＊ 配列に新規登録 。＊。＊#%>
+          <% render partial: "day_cal_new", locals: {in_take: in_take, array: array} %>
+          <%# 。＊。＊ 。＊。＊。＊。＊。＊。＊#%>
+        <% end %>
+      <% end %> <%#=== end of "@in_takes.each do |in_take|" %>
+
+
+      <%# __________配列を時間ごとではなく、日付ごとにまとめる___________ %>
+      <% @day_cal = array.group_by_day{|i| i[:start_time]} %>
+
+      <%# ______________________グラフに表示________________________ %>
+      <%= line_chart @day_cal.map{|k,v| [k, v.sum{|hash| hash[:food_cal]}]} %>
+    
+    </div>
+    <%# ------- グラフここまで ------ %>
   </div>
+  <%# ------- ページ左側ここまで ------ %>
+
+
+
+  <%# ------- ページ右側 -------- %>
   <div class="record-right">
     <div class="record-title" >in_takes</div>
-    <div class="record-form">
-      <div class="record-data" >日付</div>
-      <div class="record-menu" >メニュー①</div>
-      <div class="record-menu" >メニュー②</div>
-      <div class="record-menu" >メニュー③</div>
-      <div class="record-menu" >カロリー</div>
-      <div class="record-input" >登録ボタン</div>
-    </div>
+
+    <%# -------- ここから登録フォーム -------- %>
+    <%= form_with model: @in_take, url: in_takes_path(current_user.id), local: true do |f| %>
+    
+      <%# ------- バリデーションエラー文 --------- %>
+      <% if @in_take.errors.any? %>
+        <div class="in-takes-error-alert">
+          <ul>
+            <% @in_take.errors.full_messages.each do |message| %>
+              <li class='in-takes-error-message'><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%# ------- エラー文ここまで --------- %>
+
+      <div class="record-form">
+        <div class="record-data" >
+          <%= f.datetime_select :start_time %> <%#=== 日付選択 %>
+        </div>
+
+        <%#。＊。＊ 食べた食事・そのカロリーを選択できるフォーム 。＊。＊ %>
+        <%= render "form" %>
+        <%#。＊。＊ 。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。＊。%>
+        
+        <button type="button" id="add-form">追加する</button> <%#=== 追加するボタン(type=buttonを与えないとsubmitされてしまう) %>
+        
+
+          <%#_________🔥_________追加するボタンで以下のスクリプト発火___________🔥__________%>
+
+          <%#<<<<<<<<<<<< 同じ部分フォームを追加するJavaScript 
+                          Rubyのコードを使用したいためこちらに記述 >>>>>>>>>>>>>>>%>
+          <script>
+            const addForm = document.getElementById("add-form");
+            addForm.addEventListener("click", ()=>{
+              const insertHtml = "<%= escape_javascript(render "form") %>"; //追加するhtml.erb
+              const inTakesForm = document.getElementsByClassName("in-takes-form"); //投稿フォーム
+              inTakesForm[inTakesForm.length - 1].insertAdjacentHTML("afterend", insertHtml);
+            });
+          </script>
+          <%#<<<<<<<<<<<< ここまで >>>>>>>>>>>>>>>%>
+
+
+        <%#-------- 合計カロリー値の表示 ---------%>
+        <div class="record-menu">合計 <span id="sum-cal">0</span> kcal </div>
+
+        <%#-------- 登録ボタン ---------%>
+        <div class="record-input" >
+          <%= f.submit "登録ボタン", id:"in-takes-submit" %>
+        </div>
+      </div> 
+    <% end %>
+    <%#-------- 登録フォームここまで ---------%>
   </div>
+  <%#-------- ページ右側ここまで ---------%>
 </div>

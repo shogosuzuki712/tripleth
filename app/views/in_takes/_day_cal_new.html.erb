@@ -1,0 +1,36 @@
+<%#-------------------------- 配列に新規のカロリーデータと日時を入れる部分テンプレート --------------------------%>
+
+
+<% if "#{in_take.food_id}" =~ /^2[0-9]{1,}/ %> <%# 先頭 ^ が、n(フードカテゴリーId)から始まる、m桁の整数 %>
+  <% array << {food_cal: Main.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %> <%# 主食 %>
+
+<% elsif "#{in_take.food_id}" =~ /^3[0-9]{1,}/ %> <%# おかず %>
+  <% array << {food_cal: Side.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^4[0-9]{1,}/ %> <%# サラダ %>
+  <% array << {food_cal: Salad.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^5[0-9]{1,}/ %> <%# 副菜・おつまみ %>
+  <% array << {food_cal: FingerFood.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^6[0-9]{1,}/ %> <%# スープ %>
+  <% array << {food_cal: Soup.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^7[0-9]{1,}/ %> <%# 飲み物 %>
+  <% array << {food_cal: Drink.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^8[0-9]{1,}/ %> <%# 果物 %>
+  <% array << {food_cal: Fruits.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^9[0-9]{1,}/ %> <%# スイーツ %>
+  <% array << {food_cal: Sweets.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^10[0-9]{1,}/ %> <%# お菓子 %>
+  <% array << {food_cal: Snack.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^11[0-9]{1,}/ %> <%# アルコール %>
+  <% array << {food_cal: Alcohol.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+
+<% elsif "#{in_take.food_id}" =~ /^12[0-9]{1,}/ %> <%# サプリメント %>
+  <% array << {food_cal: Supplement.find(in_take.food_id).cal.to_i, start_time: in_take.start_time} %>
+<% end %>
