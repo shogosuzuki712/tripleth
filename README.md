@@ -73,8 +73,3 @@
 
 ### Association
 - belongs_to :user
-
-
-
-あいうえお
-
