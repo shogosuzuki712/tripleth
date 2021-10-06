@@ -73,7 +73,3 @@
 
 ### Association
 - belongs_to :user
-
-
-
-テスト
