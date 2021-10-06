@@ -43,6 +43,20 @@
 - has_one_attached :image
 
 
+
+## tweets テーブル
+
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| tweet                  | text       | null: false                    |
+| title                  | string     | null: false                    |
+| user_id                | references | null: false                    |
+
+### Association
+- belongs_to :user
+- has_many: tweet_comments
+- has_one_attached :image
+
 <br>
 <br>
 
@@ -59,6 +73,7 @@
 
 ### Association
 - belongs_to :user
+
 
 
 テスト
